@@ -1,0 +1,26 @@
+1.3 - Nov 3 2001
+- changed tmpfile naming in utilities.pl -- some people make /tmp
+  a separate partition, so rename() barfs; simplified to just be the
+  TODO_FILE + pid (thanks again Danny)
+- if remote_user not set, use 'someone at REMOTE_IP'
+- renamed wt*.cgi to wt*.pl (use commit -r x.y to keep revisions sane)
+TODO
+- doc: rewrite in LaTeX, consolidate and simplify - keep in mind two
+  classes of people:
+	1) get it up and working quickly (provide QUICK INSTALL steps)
+	2) readers (provide pointer to GUIDE)
+	- have a README.1st file with "hello", QUICK INSTALL, and pointer to GUIDE
+- doc: strongly suggest ACL usage in order to populate $who
+- doc: requires Text::CSV module which might not be installed (howto install)
+
+1.2 - Nov 1 2001
+Danny Bogaards noticed two improvements in wt_edit:
+- usage of ENV{REMOTE_USER}
+- CGI URL was hard coded; is now variable-ized
+
+1.1 - Oct 24 2001
+- Fixed small bug in wt_edit (priority check used $perc instead
+  of $pri).
+- Added code in wt_edit to log any changes to perc or pri (in case
+  there's no change to the desc).
+- Added a line to wt_display to say how many entries are displayed
