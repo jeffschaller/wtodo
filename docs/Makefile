@@ -8,7 +8,8 @@ default: html guide.ps
 %.dvi: %.tex
 	latex $<
 	latex $<
+	rm guide.aux guide.log
 
 html: guide.tex
-	latex2html -split 0 -dir guide $<
+	latex2html -split 0 -dir guide -no_navigation $<
 	rm guide/WARNINGS guide/labels.pl guide/guide.css

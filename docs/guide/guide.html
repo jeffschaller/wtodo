@@ -1,39 +1,63 @@
-\documentclass{article}
-\usepackage[T1]{fontenc}
-\usepackage{html}
-\usepackage{htmllist}
-\makeatletter
-\makeatother
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 
-\begin{document}
+<!--Converted with LaTeX2HTML 99.1 release (March 30, 1999)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Guide to wtodo, a web-based todo program</TITLE>
+<META NAME="description" CONTENT="Guide to wtodo, a web-based todo program">
+<META NAME="keywords" CONTENT="guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
 
-\title{Guide to wtodo, a web-based todo program}
-\author{Jeff Schaller}
-\date{\today}
-\maketitle
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.1 release">
 
-\part{Overview}
+</HEAD>
+
+<BODY >
+
+<P>
+
+<H1 ALIGN="CENTER">Guide to wtodo, a web-based todo program</H1>
+<P ALIGN="CENTER"><STRONG>Jeff Schaller</STRONG></P>
+<P ALIGN="CENTER"><STRONG>November 3, 2001</STRONG></P>
+
+<P>
+
+<H1><A NAME="SECTION01000000000000000000">
+Overview</A>
+</H1>
 	This program is a set of CGI scripts written in perl. The first
-program, wt\_display, has: a form for adding new entries, a table of
+program, wt_display, has: a form for adding new entries, a table of
 options to filter the display of entries, and finally a table listing
-the entries. The second program, wt\_edit, allows updates to an entry. 
+the entries. The second program, wt_edit, allows updates to an entry. 
 A third file, utilities.pl, contains subroutines that are common to the
 two scripts.
 
-\part{History and Background}
+<P>
+
+<H1><A NAME="SECTION02000000000000000000">
+History and Background</A>
+</H1>
 	I had written a command-line program called 'jtodo' in order to
 manage my tasks. I gave thought at that time to making a web-based version, but lacked
 sufficient motivation. When another person joined my team at work, it
 became necessary to consolidate some of our tasks.  Being a web-oriented team, 
 I resurrected my original plans and created the program.
 
-	Revisionist history: it turns out that having a title of ``Jeff's
+<P>
+Revisionist history: it turns out that having a title of ``Jeff's
 Awesome Web-based Program'' has had some sort of inhibitory effect on the
 team's usage of the program, so it's turned out that I'm the only one
-actually using it -- oh well :) I have been using it daily (in its original form)
+actually using it - oh well :) I have been using it daily (in its original form)
 for almost an entire year. Now that the program is hosted on Sourceforge.net,
 I've had suggestions for improvements, which I greatly appreciate!
 
+<P>
 My original concerns revolved around security.  Web-based applications have
 two huge problems here: authentication of users and protection of data. I
 recommend putting an ACL on the directory which contains the CGI scripts 
@@ -49,12 +73,17 @@ or priority fields around. The program logs all of these changes, so it would
 be easy to (manually) undo them.  Regardless, I would strongly recommend that 
 the programs not be accessible by random people on the Internet.
 
-\part{Usage}
-\begin{itemize}
-\item wt\_display
-	\begin{description}
-	\item[Adding an item]
-The form supplies a mostly-blank form for adding new entries.
+<P>
+
+<H1><A NAME="SECTION03000000000000000000">
+Usage</A>
+</H1>
+
+<UL>
+<LI>wt_display
+	<DL>
+<DT><STRONG>Adding an item</STRONG></DT>
+<DD>The form supplies a mostly-blank form for adding new entries.
 It supplies a default ``percent-complete'' value of 0 and a ``priority''
 of 50.  You must type at least one character in the ``description''
 field in order for the entry to be added.  Invalid characters in
@@ -64,13 +93,16 @@ be numbers between 0 and 100, inclusive.  The ``who'' field is
 currently limited to 20 characters. The ``when'' field is currently
 limited to 12 characters.  Click ``Add entry'' to add it when you're
 ready. The fields in this area are not sticky like most fields
-in CGI scripts -- this is a feature. It makes adding new entries
+in CGI scripts - this is a feature. It makes adding new entries
 easier by clearing out the old entry's information.
 
-	\item[Tweaking the filters]
-There are three knobs you can twiddle: sorting, filtering on the
-``who'' field, and deciding whether or not to display items that are 100\% complete.
+<P>
+ </DD>
+<DT><STRONG>Tweaking the filters</STRONG></DT>
+<DD>There are three knobs you can twiddle: sorting, filtering on the
+``who'' field, and deciding whether or not to display items that are 100% complete.
 
+<P>
 There are three ways to sort the entries: by weighted priority,
 percent-complete, or priority.  A weighted-priority sort works by
 multiplying an item's priority by how far it is from done 
@@ -81,14 +113,17 @@ Sorting by percent-complete
 and priority are straightforward.  A checkbox lets you reverse the
 sense of the sort.
 
+<P>
 If you're just interested in items which have a certain person
 working on them, enter that name in the ``who'' filter. Leaving this
 field blank will skip the name filtering. It is blank by default.
 
+<P>
 A checkbox exists to let you choose whether or not to display
 completd items. Leaving this box unchecked reduces screen clutter. It is
 unchecked by default.
 
+<P>
 After selecting the options you want (if they're different from
 the defaults), click ``Redisplay entries'' to update the list.
 The above options are sticky; that is, after selecting them and
@@ -96,38 +131,77 @@ clicking ``Redisplay'', the same options will be set. This is intentionally
 different from the non-sticky behavior of the fields in the ``Add entry''
 table above.
 
-	\item[The entries]
-Here, the entries are listed in a table according to the filters
+<P>
+ </DD>
+<DT><STRONG>The entries</STRONG></DT>
+<DD>Here, the entries are listed in a table according to the filters
 set above.  Unexciting, except for the ``Id'' field, which contains
-a hyperlink to the wt\_edit script for that entry. Segue, anyone?
-	\end{description}
+a hyperlink to the wt_edit script for that entry. Segue, anyone?
+	</DD>
+</DL>
 
-\item wt\_edit
-	\begin{description}
-	\item[Percent-complete and Priority]
-You may make changes to either of these fields.
-	\item[Description]
-You cannot edit an entry's previous descriptions -- they are
+<P>
+ </LI>
+<LI>wt_edit
+	<DL>
+<DT><STRONG>Percent-complete and Priority</STRONG></DT>
+<DD>You may make changes to either of these fields.
+	</DD>
+<DT><STRONG>Description</STRONG></DT>
+<DD>You cannot edit an entry's previous descriptions - they are
 displayed above a text box where you can enter new information.
 If you submit changes, the description field will automatically be populated
 with any changes to the percent-complete or priority fields.
-	\item[Who and when fields]
-The ``who'' and ``when'' fields, if they were previously blank, will now show
-``\&nbsp;'' instead.  This is not a bug, but rather a work-around for
+	</DD>
+<DT><STRONG>Who and when fields</STRONG></DT>
+<DD>The ``who'' and ``when'' fields, if they were previously blank, will now show
+``&amp;nbsp;'' instead.  This is not a bug, but rather a work-around for
 netscape's odd behavior when displaying blank information in a table.
 If the field was /really/ blank, netscape stops drawing the table border
-around the field; with the ``\&nbsp;'' in there, netscape will draw the
+around the field; with the ``&amp;nbsp;'' in there, netscape will draw the
 border and simply fill the field with a space. Using an actual space
 doesn't work, unfortunately.
-	\item[Submit and Reset Values]
-Clicking on ``Reset Values'' will take things back the way they were.
+	</DD>
+<DT><STRONG>Submit and Reset Values</STRONG></DT>
+<DD>Clicking on ``Reset Values'' will take things back the way they were.
 Clicking ``Submit'' will modify the entry.  Note that if any illegal values
 for percent-complete or priority exist, the field will default back to its
 previous value. After submitting the form, you are taken back to the main
-wt\_display page. There is also a hyperlink (``forget this!'') for it.
-	\end{description}
-\end{itemize}
+wt_display page. There is also a hyperlink (``forget this!'') for it.
+	</DD>
+</DL></LI>
+</UL>
 
-\part{Installation}
+<P>
+
+<H1><A NAME="SECTION04000000000000000000">
+Installation</A>
+</H1>
 See the README file!
-\end{document}
+
+<H1><A NAME="SECTION05000000000000000000">
+About this document ...</A>
+</H1>
+ <STRONG>Guide to wtodo, a web-based todo program</STRONG><P>
+This document was generated using the
+<A HREF="http://www-dsed.llnl.gov/files/programs/unix/latex2html/manual/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 99.1 release (March 30, 1999)
+<P>
+Copyright &#169; 1993, 1994, 1995, 1996,
+<A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, 
+Computer Based Learning Unit, University of Leeds.
+<BR>
+Copyright &#169; 1997, 1998, 1999,
+<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
+Mathematics Department, Macquarie University, Sydney.
+<P>
+The command line arguments were: <BR>
+ <STRONG>latex2html</STRONG> <TT>-split 0 -dir guide -no_navigation guide.tex</TT>
+<P>
+The translation was initiated by Jeff Schaller on 2001-11-03
+<BR><HR>
+<ADDRESS>
+<I>Jeff Schaller</I>
+<BR><I>2001-11-03</I>
+</ADDRESS>
+</BODY>
+</HTML>
