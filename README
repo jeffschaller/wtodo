@@ -27,7 +27,7 @@ or by searching CPAN -- http://search.cpan.org/search?module=Text::CSV
 
 1. move the program files into a cgi-bin directory
 2. pick a filename for the todo file
-3. make two edits
+3. make one edit
 4. done!
 
 INSTALLATION STEPS
@@ -51,16 +51,11 @@ export CGI
 	eg. TODO_FILE=$CGI/data/todo.csv
 	(Suggested) Use the wtodo/data subdirectory you created above, and use an
 	extension of "csv" as a reminder that it is a comma-separated file.
-5. (Required) Edit wt_edit.pl and change $CGI_URL to the URL which would send
-	requests to the CGI directory where you installed wtodo. You do not need to 
-	include a trailing slash.
-	** The program will not work until you've done the above! **
-	eg. CGI_URL=http://my.host.com/cgi-bin/wtodo
-6. (Required) Copy utilities.pl, wt_display.cgi, and wt_edit.cgi into the wtodo
+5. (Required) Copy utilities.pl, wt_display.cgi, and wt_edit.cgi into the wtodo
    cgi-bin directory you created above.
 	eg. cp utilities.pl wt_display.cgi wt_edit.cgi $CGI/wtodo
-7. (Suggested) Ensure that wt_display.cgi and wt_edit.cgi are marked executable for
+6. (Suggested) Ensure that wt_display.cgi and wt_edit.cgi are marked executable for
    "other". The files within the distribution should already be executable.
 	eg. chmod o+x wt_display.cgi wt_edit.cgi
-8. (Suggested!) Start using it! 
+7. (Suggested!) Start using it! 
 	eg. surf to $CGI_URL/wt_display.cgi
