@@ -5,7 +5,7 @@
 # can add a log/desc entry (which gets timestamped & 
 # your ID (REMOTE_USER) added)
 
-# Submit -> update entry, go back to main page (wt_display.cgi)
+# Submit -> update entry, go back to main page (wt_display)
 # Reset -> reset()
 
 #####
@@ -27,7 +27,7 @@ if (! $id ) {
 	print 
 		header(),
 		start_html('Error!'),
-		a({href => "wt_display.cgi"},
+		a({href => "wt_display.pl"},
 			"Try again."),
 		end_html();
 	exit 0;
@@ -38,7 +38,7 @@ read_todos(\%todos);
 # decide if we're being asked to edit one XOR they hit 'submit'
 
 if (param('Submit')) {
-	# update the info in csv, run wt_display.cgi
+	# update the info in csv, run wt_display
 
 	# sanity-check perc & pri
 	my $perc = param('perc');
@@ -77,8 +77,10 @@ if (param('Submit')) {
 	write_todos(\%todos);
 
 	# use full path for safety
-	# print redirect(-uri => 'wt_display.cgi',);
-	print "Location: http://${CGI_URL}/wt_display.cgi\n\n";
+	# find a good way to do this -- we should be able to grab
+	# the URL from ourselves
+	print redirect(-uri => 'wt_display.pl',);
+	# print "Location: http://${CGI_URL}/wt_display.pl\n\n";
 } else {
 
   print 
@@ -113,7 +115,7 @@ if (param('Submit')) {
 	submit(-name => "Submit"),
 	CGI::reset("Reset values"),
 	end_form(),
-	a({href => "wt_display.cgi"},
+	a({href => "wt_display.pl"},
 		"Forget this, take me back to the list!"),
 	end_html();
 }

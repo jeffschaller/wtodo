@@ -137,7 +137,7 @@ print scalar(@keys) . " entries displayed.<BR>\n";
 
 print table({-summary => "EIS todo list", -border => 1},
 		  Tr( [ th(['Id', '%', 'Pri', 'Description', 'Who', 'When']),
-			map { td([ a({-href => "wt_edit.cgi?id=$_"}, $_), @{$todos{$_}} ])
+			map { td([ a({-href => "wt_edit.pl?id=$_"}, $_), @{$todos{$_}} ])
 			    } @keys
 			  ]));
 
