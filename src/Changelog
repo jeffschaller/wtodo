@@ -1,0 +1,8 @@
+1.1 - Oct 24 2001
+- Fixed small bug in wt_edit (priority check used $perc instead
+  of $pri).
+
+- Added code in wt_edit to log any changes to perc or pri (in case
+  there's no change to the desc).
+
+- Added a line to wt_display to say how many entries are displayed
