@@ -39,7 +39,7 @@ sub read_todos {
 
 sub write_todos {
 	my $hash_ref = shift;
-	my $tmpfile = "/tmp/todos.tmp$$";
+	my $tmpfile = $TODO_FILE . ".$$";
 
 	open F, ">$tmpfile" or
 		die "couldn't open tmp file: $tmpfile: $!";
