@@ -1,3 +1,8 @@
+1.5 - Nov 5 2001
+- finished renaming cgi references
+- removed 'EIS' references
+- did redirect() the right way
+
 1.4 - Nov 4 2001
 - brown-paper-bag fixes -- I forgot to rename the program's references when
   I renamed the files!
