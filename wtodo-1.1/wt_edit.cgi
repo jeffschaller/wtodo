@@ -8,6 +8,14 @@
 # Submit -> update entry, go back to main page (wt_display.cgi)
 # Reset -> reset()
 
+#####
+# You need to define the following variable or the program won't work!
+# Set it to the URL which would send CGI requests to the CGI directory
+# where you installed wtodo.
+#####
+
+my $CGI_URL = "http://my.host.com/cgi-bin/wtodo";
+
 use strict;
 use CGI qw/:standard/;
 require 'utilities.pl';
@@ -37,6 +45,7 @@ if (param('Submit')) {
 	my $pri = param('pri');
 	my $oldperc = $todos{$id}[0];
 	my $oldpri = $todos{$id}[1];
+	my $who = $ENV{'REMOTE_USER'} || 'someone';
 
 	if ($perc =~ /^\d{1,3}$/ && $perc <= 100) {
 		$todos{$id}[0] = clean_csv_string($perc);
@@ -47,22 +56,18 @@ if (param('Submit')) {
 
 	if (param('perc') != $oldperc) {
 		$todos{$id}[2] .= '<BR>' . scalar(localtime) . ": " .
-		($ENV{'REMOTE_USER'} || 'someone') . 
-		" updated percent-complete from $oldperc to $todos{$id}[0]";
+		"$who updated percent-complete from $oldperc to $todos{$id}[0]";
 	}
 
 	if (param('pri') != $oldpri) {
 		$todos{$id}[2] .= '<BR>' . scalar(localtime) . ": " .
-		($ENV{'REMOTE_USER'} || 'someone') .
-		" updated priority from $oldpri to $todos{$id}[1]";
+		"$who updated priority from $oldpri to $todos{$id}[1]";
 	}
 
 	# see if we need to update 'desc'
 	if (param('moredesc') =~ /\w/) {
 		$todos{$id}[2] .= '<BR>' .
-			scalar(localtime) . ": " .
-			($ENV{'REMOTE_USER'} || 'someone') . ": " .
-			param('moredesc');
+			scalar(localtime) . ": $who: " . param('moredesc');
 	}
 
 	$todos{$id}[2] = clean_csv_string($todos{$id}[2]);
@@ -73,8 +78,7 @@ if (param('Submit')) {
 
 	# use full path for safety
 	# print redirect(-uri => 'wt_display.cgi',);
-	print "Location: http://nc.gcintranet.net/cgi-bin/" .
-	      "wtodo/wt_display.cgi\n\n";
+	print "Location: http://${CGI_URL}/wt_display.cgi\n\n";
 } else {
 
   print 
