@@ -8,14 +8,6 @@
 # Submit -> update entry, go back to main page (wt_display)
 # Reset -> reset()
 
-#####
-# You need to define the following variable or the program won't work!
-# Set it to the URL which would send CGI requests to the CGI directory
-# where you installed wtodo.
-#####
-
-my $CGI_URL = "http://my.host.com/cgi-bin/wtodo";
-
 use strict;
 use CGI qw/:standard/;
 require 'utilities.pl';
@@ -76,16 +68,14 @@ if (param('Submit')) {
 
 	write_todos(\%todos);
 
-	# use full path for safety
-	# find a good way to do this -- we should be able to grab
-	# the URL from ourselves
-	print redirect(-uri => 'wt_display.pl',);
-	# print "Location: http://${CGI_URL}/wt_display.pl\n\n";
+	my $full_url = url(-full => 1);
+	$full_url =~ s#/[^/]+$##;
+	print redirect(-uri => "${full_url}/wt_display.pl");
 } else {
 
   print 
 	header(),
-	start_html(-title => 'Edit EIS todo entry',
+	start_html(-title => 'Edit todo entry',
 		   -author => 'schaller@users.sourceforge.net'),
 	'<CENTER>' . h1("Jeff's Awesome Web-based Todo Program"). '</CENTER>',
 	start_form(),
