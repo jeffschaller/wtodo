@@ -10,7 +10,6 @@ Thanks for taking a look at wtodo!
 -jeff
 schaller@users.sourceforge.net
 
-
 WARNING
 
 I strongly recommend putting this on a private web server along with an ACL; I
@@ -19,6 +18,12 @@ has to have permission to write to your "todos" file. See the guide for more
 discussion about security concerns.
 
 INSTALLATION OVERVIEW
+
+These perl modules depend on one additional perl module that may not come
+standard with your distribution: Text::CSV. You can install it with the CPAN
+module: perl -MCPAN -e shell; cpan> install Text::CSV
+or manually from http://www.cpan.org/authors/id/ALANCITT/Text-CSV-0.01.tar.gz
+or by searching CPAN -- http://search.cpan.org/search?module=Text::CSV
 
 1. move the program files into a cgi-bin directory
 2. pick a filename for the todo file
