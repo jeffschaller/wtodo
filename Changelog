@@ -4,14 +4,15 @@
   TODO_FILE + pid (thanks again Danny)
 - if remote_user not set, use 'someone at REMOTE_IP'
 - renamed wt*.cgi to wt*.pl (use commit -r x.y to keep revisions sane)
-TODO
+- rearranged directory structure Yet Some More! It's too bad that I'm indecisive
+  and that CVS doesn't let me cover my tracks :)
+- doc: requires Text::CSV module which might not be installed (howto install)
+- doc: strongly suggest ACL usage in order to populate $who
 - doc: rewrite in LaTeX, consolidate and simplify - keep in mind two
   classes of people:
 	1) get it up and working quickly (provide QUICK INSTALL steps)
 	2) readers (provide pointer to GUIDE)
 	- have a README.1st file with "hello", QUICK INSTALL, and pointer to GUIDE
-- doc: strongly suggest ACL usage in order to populate $who
-- doc: requires Text::CSV module which might not be installed (howto install)
 
 1.2 - Nov 1 2001
 Danny Bogaards noticed two improvements in wt_edit:
