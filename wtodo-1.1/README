@@ -1,0 +1,34 @@
+Wtodo is a CGI program that I use to keep track of my work projects.
+It has no bells or whistles, but it gets the job done. If you like it,
+send me a note!
+
+-jeff
+schaller@freeshell.org
+
+INSTALLATION
+I suggest putting this on a private web server along with an ACL; I
+would not use this on a public web server, as the web server userid
+has to have permission to write to your "todos" file. I've included
+some example commands that assume you're installing into a directory
+that's named by an environment variable called CGI -- this lets you
+copy and paste these instructions as a pseudo script ... just make the
+appropriate changes!
+
+export CGI=/home/schaller/cgi-bin
+
+1. Create a "wtodo" subdirectory under your cgi-bin directory.
+	eg. mkdir $CGI/wtodo
+2. Create a "wtodo/data" subdirectory (could be under cgi-bin or /home).
+	eg. mkdir $CGI/wtodo/data
+3. Optionally create an ACL on $CGI/wtodo
+4. Edit utilities.pl and pick a filename for your "todos" file.
+	** The program will not work until you've done the above steps **
+	eg. TODO_FILE=$CGI/data/todo.csv
+5. Copy utilities.pl, wt_display.cgi, and wt_edit.cgi into the wtodo
+   subdirectory under cgi-bin.
+	eg. cp utilities.pl wt_display.cgi wt_edit.cgi $CGI/wtodo
+6. Ensure that wt_display.cgi and wt_edit.cgi are marked executable for
+   "other".
+	eg. chmod o+x wt_display.cgi wt_edit.cgi
+7. Start using it! 
+	eg. http://localhost/your/cgi-bin/wtodo/wt_display.cgi
