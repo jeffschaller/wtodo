@@ -80,7 +80,7 @@ if (param('Submit')) {
   print 
 	header(),
 	start_html(-title => 'Edit EIS todo entry',
-		   -author => 'jeff_schaller@globalcrossing.com'),
+		   -author => 'schaller@users.sourceforge.net'),
 	'<CENTER>' . h1("Jeff's Awesome Web-based Todo Program"). '</CENTER>',
 	start_form(),
 	hidden(-name => 'id', -default => $id),
