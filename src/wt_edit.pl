@@ -37,7 +37,7 @@ if (param('Submit')) {
 	my $pri = param('pri');
 	my $oldperc = $todos{$id}[0];
 	my $oldpri = $todos{$id}[1];
-	my $who = $ENV{'REMOTE_USER'} || "someone at " . $ENV{'REMOTE_IP'};
+	my $who = $ENV{'REMOTE_USER'} || "someone at " . $ENV{'REMOTE_ADDR'};
 
 	if ($perc =~ /^\d{1,3}$/ && $perc <= 100) {
 		$todos{$id}[0] = clean_csv_string($perc);

@@ -29,7 +29,7 @@ if (param('Add entry') &&
 	$todos{$new_id} = [ 	clean_csv_string(param('perc')),
 				clean_csv_string(param('pri')),
 				scalar(localtime()) . ": " .
-				$ENV{REMOTE_USER} . ": " .
+				($ENV{REMOTE_USER} || "someone") . ": " .
 				clean_csv_string(param('desc')),
 				clean_csv_string(param('who')  || "&nbsp;"),
 				clean_csv_string(param('when') || "&nbsp;") ];
