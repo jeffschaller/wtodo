@@ -2,10 +2,14 @@ Wtodo is a CGI program that I use to keep track of my work projects.
 It has no bells or whistles, but it gets the job done. If you like it,
 send me a note!
 
+This file explains how to install wtodo; for a more general overview,
+read GUIDE.txt.
+
 -jeff
 schaller@users.sourceforge.net
 
 INSTALLATION
+
 I suggest putting this on a private web server along with an ACL; I
 would not use this on a public web server, as the web server userid
 has to have permission to write to your "todos" file. I've included
