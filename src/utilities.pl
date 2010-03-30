@@ -3,7 +3,6 @@
 # the 'undef' in the line below!
 
 my $TODO_FILE = undef;
-# my $TODO_FILE = '/home/schaller/todos/todo.csv';
 die "Edit utilites.pl and set a TODO_FILE location" unless $TODO_FILE;
 
 use strict;
@@ -25,12 +24,14 @@ sub read_todos {
 	flock(F, LOCK_SH);
 	while (<F>) {
 		my $csv = Text::CSV->new();
-
 		chomp;
 		$csv->parse($_);
 		my @columns = $csv->fields();
 		my $id = shift @columns;
-		$hash_ref->{$id} = [ @columns ];
+		$hash_ref->{$id}{'percent'} = shift @columns;
+		$hash_ref->{$id}{'impact'} = shift @columns;
+		$hash_ref->{$id}{'urgency'} = shift @columns;
+		$hash_ref->{$id}{'notes'} = shift @columns;
 	}
 	close F;
 	flock(F, LOCK_UN);
@@ -44,9 +45,13 @@ sub write_todos {
 	open F, ">$tmpfile" or
 		die "couldn't open tmp file: $tmpfile: $!";
 	flock(F, LOCK_EX);
-	foreach (keys %{$hash_ref}) {
+	foreach my $id (keys %{$hash_ref}) {
 		my $csv = Text::CSV->new();
-		$csv->combine($_, @{$hash_ref->{$_}});
+		$csv->combine($id, ($hash_ref->{$id}{'percent'},
+				    $hash_ref->{$id}{'impact'},
+				    $hash_ref->{$id}{'urgency'},
+				    $hash_ref->{$id}{'notes'},
+				  ));
 		print F $csv->string() . "\n";
 	}
 	close F;

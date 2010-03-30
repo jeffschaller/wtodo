@@ -1,12 +1,7 @@
 #!/usr/bin/perl -w
 
 # takes an 'id' parameter which says which entry to edit
-# can update %, pri, who, when
-# can add a log/desc entry (which gets timestamped & 
-# your ID (REMOTE_USER) added)
-
-# Submit -> update entry, go back to main page (wt_display)
-# Reset -> reset()
+# can update percent-complete, impact, urgency and/or add notes
 
 use strict;
 use CGI qw/:standard/;
@@ -16,9 +11,7 @@ my %todos = ();
 my $id = param('id');
 
 if (! $id ) {
-	print 
-		header(),
-		start_html('Error!'),
+	print   header(), start_html('Error!'),
 		a({href => "wt_display.pl"},
 			"Try again."),
 		end_html();
@@ -32,39 +25,47 @@ read_todos(\%todos);
 if (param('Submit')) {
 	# update the info in csv, run wt_display
 
-	# sanity-check perc & pri
-	my $perc = param('perc');
-	my $pri = param('pri');
-	my $oldperc = $todos{$id}[0];
-	my $oldpri = $todos{$id}[1];
+	# sanity-check perc, impact, urgency
+	my $perc = param('percent');
+	my $impact = param('impact');
+	my $urgency = param('urgency');
+	my $oldperc = $todos{$id}{'percent'};
+	my $oldimpact = $todos{$id}{'impact'};
+	my $oldurgency = $todos{$id}{'urgency'};
 	my $who = $ENV{'REMOTE_USER'} || "someone at " . $ENV{'REMOTE_ADDR'};
 
 	if ($perc =~ /^\d{1,3}$/ && $perc <= 100) {
-		$todos{$id}[0] = clean_csv_string($perc);
+		$todos{$id}{'percent'} = clean_csv_string($perc);
 	}
-	if ($pri =~ /^\d{1,3}$/ && $pri <= 100) {
-		$todos{$id}[1] = clean_csv_string($pri);
-	}
-
-	if (param('perc') != $oldperc) {
-		$todos{$id}[2] .= '<BR>' . scalar(localtime) . ": " .
-		"$who updated percent-complete from $oldperc to $todos{$id}[0]";
+	if ($impact =~ /^\d{1,3}$/ && $impact <= 100) {
+		$todos{$id}{'impact'} = clean_csv_string($impact);
 	}
 
-	if (param('pri') != $oldpri) {
-		$todos{$id}[2] .= '<BR>' . scalar(localtime) . ": " .
-		"$who updated priority from $oldpri to $todos{$id}[1]";
+	if ($urgency =~ /^\d{1,3}$/ && $urgency <= 100) {
+		$todos{$id}{'urgency'} = clean_csv_string($urgency);
 	}
 
-	# see if we need to update 'desc'
-	if (param('moredesc') =~ /\w/) {
-		$todos{$id}[2] .= '<BR>' .
-			scalar(localtime) . ": $who: " . param('moredesc');
+	if ($perc != $oldperc) {
+		$todos{$id}{'notes'} .= '<BR>' . scalar(localtime) . ": " .
+		"$who updated percent-complete from $oldperc to $todos{$id}{'percent'}";
 	}
 
-	$todos{$id}[2] = clean_csv_string($todos{$id}[2]);
-	$todos{$id}[3] = clean_csv_string(param('who'));
-	$todos{$id}[4] = clean_csv_string(param('when'));
+	if (param('impact') != $oldimpact) {
+		$todos{$id}{'notes'} .= '<BR>' . scalar(localtime) . ": " .
+		"$who updated impact from $oldimpact to $todos{$id}{'impact'}";
+	}
+
+	if (param('urgency') != $oldurgency) {
+		$todos{$id}{'notes'} .= '<BR>' . scalar(localtime) . ": " .
+		"$who updated urgency from $oldurgency to $todos{$id}{'urgency'}";
+	}
+	# see if we need to update the notes
+	if (param('morenotes') =~ /\w/) {
+		$todos{$id}{'notes'} .= '<BR>' .
+			scalar(localtime) . ": $who: " . param('morenotes');
+	}
+
+	$todos{$id}{'notes'} = clean_csv_string($todos{$id}{'notes'});
 
 	write_todos(\%todos);
 
@@ -81,29 +82,25 @@ if (param('Submit')) {
 	start_form(),
 	hidden(-name => 'id', -default => $id),
 	"Percent complete: ",
-	textfield(-name => 'perc', -size => 3, -maxlength => 3,
-			-default => $todos{$id}[0]),
-	"Priority: ",
-	textfield(-name => 'pri', -size => 3, -maxlength => 3,
-			-default => $todos{$id}[1]),
+	textfield(-name => 'percent', -size => 3, -maxlength => 3,
+			-default => $todos{$id}{'percent'}),
+	"Impact: ",
+	textfield(-name => 'impact', -size => 3, -maxlength => 3,
+			-default => $todos{$id}{'impact'}),
+	"Urgency: ",
+	textfield(-name => 'urgency', -size => 3, -maxlength => 3,
+			-default => $todos{$id}{'urgency'}),
+	"Priority: " . $todos{$id}{'impact'} * $todos{$id}{'urgency'},
 	br(),
-	"Previous description:",
+	"Previous notes:",
 	br(),
-	blockquote($todos{$id}[2]),
+	blockquote($todos{$id}{'notes'}),
 	p(),
-	"Additional description: ",
+	"Additional notes: ",
 	br(),
-	textarea(-name => 'moredesc', -rows => 10, -columns => 80),
-	br(),
-	"Who: ",
-	textfield(-name => 'who', -default => $todos{$id}[3],
-		-size => 20, -maxlength => 30),
-	"When: ",
-	textfield(-name => 'when', -default => $todos{$id}[4],
-		-size => 12, -maxlength => 12),
+	textarea(-name => 'morenotes', -rows => 10, -columns => 80),
 	br(),
 	submit(-name => "Submit"),
-	CGI::reset("Reset values"),
 	end_form(),
 	a({href => "wt_display.pl"},
 		"Forget this, take me back to the list!"),
