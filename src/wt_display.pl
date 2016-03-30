@@ -35,7 +35,7 @@ if (param('Add entry') &&
 
 print header(),
 	start_html(-title => "Todo list",
-		-author => 'schaller@users.sourceforge.net'),
+		-author => 'https://github.com/jeffschaller'),
 	'<CENTER>' . h1("Jeff's Awesome Web-based Todo Program"). '</CENTER>',
 	start_form();
 

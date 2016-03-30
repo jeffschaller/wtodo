@@ -77,7 +77,7 @@ if (param('Submit')) {
   print 
 	header(),
 	start_html(-title => 'Edit todo entry',
-		   -author => 'schaller@users.sourceforge.net'),
+		   -author => 'https://github.com/jeffschaller'),
 	'<CENTER>' . h1("Jeff's Awesome Web-based Todo Program"). '</CENTER>',
 	start_form(),
 	hidden(-name => 'id', -default => $id),
